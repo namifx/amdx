@@ -1,0 +1,120 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © joshuuu
+
+//@version=5
+indicator("AMD⨯", overlay = true)
+lokz                = input.bool(true, "London", inline="london", group="Sessions")
+nyam                = input.bool(true, "New York AM", inline="nyam", group="Sessions")
+nypm                = input.bool(false, "New York PM", inline="nypm", group="Sessions")
+
+lokz_col            = input.color(#94c97b, "", inline = "london", group="Sessions")
+nyam_col            = input.color(#7b8dc9, "", inline="nyam", group="Sessions")
+nypm_col            = input.color(#c97bb2, "", inline="nypm", group="Sessions")
+
+
+l_location          = input.string("Bottom", "Text Location", options=["Top", "Bottom"], group="Style", inline="text")
+t_offset            = input.int(3, "Offset", minval=0, maxval=10, group="Style", inline="text")
+
+line_color          = input.color(#7a7a7a, "Lines", inline="line", group="Style")
+i_lstyle            = input.string("Dotted", "", options=["Solid", "Dotted", "Dashed"], inline="line", group="Style")
+lstyle              = i_lstyle    ==    "Solid" ? line.style_solid : i_lstyle == "Dotted" ? line.style_dotted : line.style_dashed
+
+llocation           = l_location == "Bottom" ? location.bottom : location.top
+
+version = input.string("Daye", options = ["Daye", "CLS"], group="Version")
+var line open_line = na
+if version == "Daye"
+    if lokz
+        if hour(time, timezone = "America/New_York") == 00 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        if hour(time, timezone = "America/New_York") == 1 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else if hour(time, timezone = "America/New_York") == 3 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else if hour(time, timezone = "America/New_York") == 4 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else 
+            line.set_x2(open_line, bar_index)
+    if lokz or nyam
+        if hour(time, timezone = "America/New_York") == 6 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        
+    if nyam
+        if hour(time, timezone = "America/New_York") == 7 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else if hour(time, timezone = "America/New_York") == 9 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else if hour(time, timezone = "America/New_York") == 10 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else 
+            line.set_x2(open_line, bar_index)
+    if nyam or nypm
+        if hour(time, timezone = "America/New_York") == 12 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+    if nypm
+        if hour(time, timezone = "America/New_York") == 13 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+
+        else if hour(time, timezone = "America/New_York") == 15 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else if hour(time, timezone = "America/New_York") == 16 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else 
+            line.set_x2(open_line, bar_index)
+else if version == "CLS"
+    if lokz
+        if hour(time, timezone = "America/New_York") == 00 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        if hour(time, timezone = "America/New_York") == 1 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else if hour(time, timezone = "America/New_York") == 3 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else if hour(time, timezone = "America/New_York") == 4 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else 
+            line.set_x2(open_line, bar_index)
+    if lokz or nyam
+        if hour(time, timezone = "America/New_York") == 6 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        
+    if nyam
+        if hour(time, timezone = "America/New_York") == 8 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else if hour(time, timezone = "America/New_York") == 9 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else if hour(time, timezone = "America/New_York") == 11 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else 
+            line.set_x2(open_line, bar_index)
+    if nyam or nypm
+        if hour(time, timezone = "America/New_York") == 12 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+    if nypm
+        if hour(time, timezone = "America/New_York") == 13 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+
+        else if hour(time, timezone = "America/New_York") == 15 and minute(time, timezone = "America/New_York") == 00
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else if hour(time, timezone = "America/New_York") == 16 and minute(time, timezone = "America/New_York") == 30
+            line.new(bar_index, high, bar_index, low, extend = extend.both, color = line_color, style = lstyle)
+        else 
+            line.set_x2(open_line, bar_index)
+
+
+
+plotchar(version == "Daye" and lokz and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 00 and minute(time[1], timezone = "America/New_York") == 00, location = llocation, textcolor = lokz_col, text = "A", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and lokz and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 01 and minute(time[1], timezone = "America/New_York") == 30, location = llocation, textcolor = lokz_col, text = "M", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and lokz and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 03 and minute(time[1], timezone = "America/New_York") == 00, location = llocation, textcolor = lokz_col, text = "D", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and lokz and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 04 and minute(time[1], timezone = "America/New_York") == 30, location = llocation, textcolor = lokz_col, text = "⨯", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and nyam and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 06 and minute(time[1], timezone = "America/New_York") == 00, location = llocation, textcolor = nyam_col, text = "A", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and nyam and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 07 and minute(time[1], timezone = "America/New_York") == 30, location = llocation, textcolor = nyam_col, text = "M", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and nyam and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 09 and minute(time[1], timezone = "America/New_York") == 00, location = llocation, textcolor = nyam_col, text = "D", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and nyam and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 10 and minute(time[1], timezone = "America/New_York") == 30, location = llocation, textcolor = nyam_col, text = "⨯", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and nypm and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 12 and minute(time[1], timezone = "America/New_York") == 00, location = llocation, textcolor = nypm_col, text = "A", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and nypm and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 13 and minute(time[1], timezone = "America/New_York") == 30, location = llocation, textcolor = nypm_col, text = "M", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and nypm and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 15 and minute(time[1], timezone = "America/New_York") == 00, location = llocation, textcolor = nypm_col, text = "D", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "Daye" and nypm and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 16 and minute(time[1], timezone = "America/New_York") == 30, location = llocation, textcolor = nypm_col, text = "⨯", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "CLS" and nyam and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 06 and minute(time[1], timezone = "America/New_York") == 00, location = llocation, textcolor = nyam_col, text = "A", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "CLS" and nyam and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 07 and minute(time[1], timezone = "America/New_York") == 30, location = llocation, textcolor = nyam_col, text = "M", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "CLS" and nyam and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 09 and minute(time[1], timezone = "America/New_York") == 00, location = llocation, textcolor = nyam_col, text = "D", char = "", size = size.tiny, offset = t_offset)
+plotchar(version == "CLS" and nyam and timeframe.in_seconds() < timeframe.in_seconds("60") and hour(time, timezone = "America/New_York") == 10 and minute(time[1], timezone = "America/New_York") == 30, location = llocation, textcolor = nyam_col, text = "⨯", char = "", size = size.tiny, offset = t_offset)
